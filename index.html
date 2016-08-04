@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lines</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div id="container">
+		<!-- стили top, left устанавливают изначальное положение объектов -->
+		<div class="draggable" id="m1" style="top:500px;left480px;">
+			<div class="title">
+				Users M1
+			</div>
+		</div>
+		<div class="draggable" id="m2" style="top:200px;left:500px;">
+			<div class="title">
+				User Roles M2   
+			</div> 
+		</div>
+		<div class="draggable" id="m3" style="top:400px;left:700px;">
+			<div class="title">
+				Roles M3   
+			</div>  
+		</div>
+	</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="jquery.connect.js"></script>
+<script type="text/javascript">
+	var connections = [];
+	$('.draggable').draggable({
+		drag : function() {
+			var item = this;
+			connections.forEach(function(connection){
+				if(connection.elem1[0] === item || connection.elem2[0] === item) {
+					connection.calculate();
+				}
+			})
+		}
+	});
+	connections.push(new $.connect('#m1', '#m2', {leftLabel : 'One', rightLabel: 'Many'}));
+	connections.push(new $.connect('#m1', '#m3'));
+</script>
+</body>
+</html>
